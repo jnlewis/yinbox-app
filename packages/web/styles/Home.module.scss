@@ -1,9 +1,12 @@
 .container {
-  background-color: #091417;
 }
 
 .main {
   width: 100%;
+}
+
+.intro {
+  background-color: #091417;
   height: 100vh;
 }
 
@@ -64,18 +67,6 @@
   .title {
     font-size: 48px;
   }
-}
-
-.iconWhite {
-  filter: invert(99%) sepia(65%) saturate(2%) hue-rotate(283deg) brightness(115%) contrast(100%);
-}
-
-.followUs {
-  margin-top: 50px;
-}
-
-.followUs a {
-  margin: 0 15px;
 }
 
 .buttonHighlight,

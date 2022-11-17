@@ -13,16 +13,14 @@ const Footer = () => {
               Yinbox is the first fully integrated messenger app with end-to-end encryption and spam prevention on NEAR
             </p>
             <div className={styles.label}>Connect with us</div>
-            <p>
-              <a
-                className={styles.link}
-                target="_blank"
-                href="https://github.com/jnlewis/yinbox-contracts"
-                rel="noreferrer"
-              >
-                Find us on Github
+            <div className={styles.followUs}>
+              <a href='https://github.com/jnlewis/yinbox-contracts' className={styles.iconWhite}>
+                <img src='/assets/icons8-github.svg' alt='Github' />
               </a>
-            </p>
+              <a href='mailto:contact@swapstation.io'>
+                <img src='/assets/email.svg' alt='Email' className={styles.iconWhite} />
+              </a>
+            </div>
           </Col>
           <Col lg={8} md={8}>
             <Container>

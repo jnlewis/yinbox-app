@@ -1,0 +1,121 @@
+
+// -----------
+.section-container {
+    padding: 80px 0;
+    text-align: center;
+    margin: 0 auto;
+    max-width: 1140px;
+    min-height: 567px;
+  }
+  @media (min-width: 576px) {
+    .section-container { max-width: 540px; }
+  }
+  @media (min-width: 768px) {
+    .section-container { max-width: 720px; }
+  }
+  @media (min-width: 992px) {
+    .section-container { max-width: 960px; }
+  }
+  @media (min-width: 1200px) {
+    .section-container { max-width: 1140px; }
+  }
+  
+  .features-section h4 {
+    font-weight: 300;
+    margin-bottom: 15px;
+    font-size: 22px;
+  }
+  .features-section .icon {
+    width: 50px;
+    height: 50px;
+    font-size: 50px;
+    transition: .5s;
+    background: linear-gradient(45deg,#ffb683 0,#ffeded 100%);
+    background-clip: border-box;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .heading {
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    padding-bottom: 30px;
+  }
+  .feature-description {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 300;
+    padding: 0;
+    margin: 0 0 30px;
+  }
+  .advanced-section {
+    text-align: left;
+    min-height: auto;
+  }
+  .advanced-description h3 {
+    font-size: 26px;
+    font-weight: 700;
+    color: #000;
+  }
+  .advanced-description .muted {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+    font-style: italic;
+    color: #999;
+  }
+  .advanced-description .paragraph {
+    line-height: 24px;
+    color: #777;
+    margin-bottom: 30px;
+    font-size: 16px;
+    font-weight: 400;
+  }
+  
+  .advanced-image {
+    margin-top: 80px;
+    border: solid 5px;
+    border-radius: 10px;
+  }
+  .advanced-image img {
+    width: 100%;
+  }
+  
+  .usability-subtitle {
+    font-weight: 300;
+    margin-bottom: 80px;
+  }
+  
+  .card {
+    height: 100%;
+  }
+  .card-body {
+  
+  }
+  .card-title {
+    font-weight: bold;
+    margin-bottom: 15px;
+    font-size: 22px;
+  }
+  .card-description {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 300;
+    padding: 0;
+    margin: 0 0 30px;
+  }
+  
+  .divider {
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: #1dc8cd;
+    background: linear-gradient(0deg,#1dc8cd 0,#55fabe 100%);
+    margin: 0 auto 20px;
+  }
+  
+  .link, .link:hover {
+      color: #1dc8cd;
+      text-decoration: none;
+      font-size: 18px;
+  }
+  

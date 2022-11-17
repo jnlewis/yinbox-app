@@ -3,14 +3,14 @@
   box-shadow: 0px 0px 12px 0px rgb(0 0 0 / 10%);
   padding: 60px 0;
   overflow: hidden;
-  /* background: #0f2236;
-    color: white; */
+  background: #091417;
+  color: white;
 }
 
 .appDescription {
   font-size: 14px;
   line-height: 24px;
-  color: #888;
+  color: #ddd;
 }
 
 .brand {
@@ -22,13 +22,15 @@
   white-space: nowrap;
 }
 
-.link,
+.link {
+  color: #939393;
+}
 .link:hover {
-  color: #5a5a5a;
+  color: #fff;
 }
 
 .label {
-  margin: 0 0 20px 0;
+  margin: 0 0 10px 0;
   font-weight: bold;
   padding: 0;
 }
@@ -40,4 +42,12 @@
 
 .list > li {
   margin: 10px 0;
+}
+
+.followUs a {
+  margin-right: 30px;
+
+  img {
+    filter: invert(99%) sepia(65%) saturate(2%) hue-rotate(283deg) brightness(115%) contrast(100%);
+  }
 }

@@ -1,6 +1,18 @@
 import { Blockchains } from 'core/enums/blockchains';
 
 class LocalStorage {
+  storeLastMessageTimestamp(timestamp: number): void {
+    window?.localStorage?.setItem(`yinbox_lastMessageTimestamp`, timestamp.toString());
+  }
+  getLastMessageTimestamp(): number {
+    return window?.localStorage?.getItem(`yinbox_lastMessageTimestamp`)
+      ? Number(window.localStorage.getItem(`yinbox_lastMessageTimestamp`)) ?? 0
+      : null;
+  }
+  clearLastMessageTimestamp() {
+    window?.localStorage?.removeItem(`yinbox_lastMessageTimestamp`);
+  }
+
   storeTransition(key: string, contents: any): void {
     window?.localStorage?.setItem(`yinbox_transition_${key}`, JSON.stringify(contents));
   }

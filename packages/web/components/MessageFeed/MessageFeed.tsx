@@ -12,7 +12,13 @@ import YinboxContract from 'modules/yinboxContract/yinboxContract';
 import { fetchUser } from 'services/web/userService';
 import CardInvite from './Cards/CardInvite';
 import CardNFT from './Cards/CardNFT';
-import { composeMessage, getLastMessageTimestamp, prepareMessagesForParticipant, prepareMessagesForSelf } from 'modules/messaging/messageHelper';
+import {
+  composeMessage,
+  getLastMessageTimestamp,
+  prepareMessagesForParticipant,
+  prepareMessagesForSelf,
+} from 'modules/messaging/messageHelper';
+import { useInterval } from 'react-interval-hook';
 
 interface MessageFeedProps {
   chat?: Chat;
@@ -29,8 +35,11 @@ const MessageFeed = ({ chat, isSelf }: MessageFeedProps) => {
     init();
   }, [chat.threadId]);
 
-  useEffect(() => {
-  }, []);
+  useInterval(() => {
+    if (!isSelf) {
+      fetchNewMessages();
+    }
+  }, 3000);
 
   const init = async () => {
     console.log(`MessageFeed:init`);
@@ -48,20 +57,25 @@ const MessageFeed = ({ chat, isSelf }: MessageFeedProps) => {
         fetchUser(chat.participant),
         YinboxContract.getConversation(chat.owner, chat.participant),
       ]);
-      
+
       setLastMessageTimestamp(getLastMessageTimestamp(messagesData));
 
       const isSignedUp = recipientUserData !== null;
       const isConversationApproved = conversationData !== null;
-      const loadedMessages = prepareMessagesForParticipant(messagesData, chat.threadId, chat.owner, chat.participant, isSignedUp, isConversationApproved);
+      const loadedMessages = prepareMessagesForParticipant(
+        messagesData,
+        chat.threadId,
+        chat.owner,
+        chat.participant,
+        isSignedUp,
+        isConversationApproved,
+      );
       setIsConversationUnlocked(isConversationApproved);
       setMessages(loadedMessages);
     }
 
     if (isSelf) {
-      const [messagesData] = await Promise.all([
-        fetchMessages(chat.threadId, chat.sessionKey),
-      ]);
+      const [messagesData] = await Promise.all([fetchMessages(chat.threadId, chat.sessionKey)]);
       setLastMessageTimestamp(getLastMessageTimestamp(messagesData));
 
       const loadedMessages = prepareMessagesForSelf(messagesData, chat.threadId, chat.owner);
@@ -70,10 +84,22 @@ const MessageFeed = ({ chat, isSelf }: MessageFeedProps) => {
     }
   };
 
-  const handleSend = async (message: string) => {
+  const fetchNewMessages = async () => {
+    const newMessages = await fetchMessagesSince(
+      chat.threadId,
+      lastMessageTimestamp,
+      chat.sessionKey,
+    );
+    if (newMessages && newMessages.length > 0) {
+      setLastMessageTimestamp(getLastMessageTimestamp(newMessages));
+      const participantMessages = newMessages.filter(item => item.sender !== chat.owner);
+      setMessages([...messages, ...participantMessages]);
+    }
+  };
 
+  const handleSend = async (message: string) => {
     const newMessage = composeMessage(chat.threadId, chat.owner, chat.participant, message);
-    
+
     setMessages([...messages, newMessage]);
 
     await sendMessage(
@@ -90,17 +116,12 @@ const MessageFeed = ({ chat, isSelf }: MessageFeedProps) => {
     await YinboxContract.createConversation(chat.participant);
   };
 
-  const fetchNewMessages = async () => {
-    console.log(`fetchNewMessages`);
-    const newMessages = await fetchMessagesSince(chat.threadId, lastMessageTimestamp, chat.sessionKey);
-  }
-
   return (
     <>
       <div className={styles.messageContainer}>
-          <a onClick={() => fetchNewMessages()}>fetch new</a>
         {isLoading && <div>loading...</div>}
-        {!isLoading && messages &&
+        {!isLoading &&
+          messages &&
           messages.map((message, index) => {
             if (message.messageType === MessageTypes.Notice) {
               return <CardNotice key={index} message={message.message} />;
@@ -118,13 +139,7 @@ const MessageFeed = ({ chat, isSelf }: MessageFeedProps) => {
             }
 
             if (message.messageType === MessageTypes.Invite) {
-              return (
-                <CardInvite
-                  key={index}
-                  sender={message.sender}
-                  message={message.message}
-                />
-              );
+              return <CardInvite key={index} sender={message.sender} message={message.message} />;
             }
 
             if (message.messageType === MessageTypes.NFT) {
@@ -134,6 +149,7 @@ const MessageFeed = ({ chat, isSelf }: MessageFeedProps) => {
                   sender={message.sender === chat.owner ? 'You' : message.sender}
                   align={message.sender === chat.owner ? 'right' : 'left'}
                   content={message.message}
+                  timestamp={message.createdTimeUTC}
                 />
               );
             }
@@ -144,6 +160,7 @@ const MessageFeed = ({ chat, isSelf }: MessageFeedProps) => {
                 sender={message.sender === chat.owner ? 'You' : message.sender}
                 message={message.message}
                 align={message.sender === chat.owner ? 'right' : 'left'}
+                timestamp={message.createdTimeUTC}
               />
             );
           })}

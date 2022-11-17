@@ -69,7 +69,7 @@ export const prepareMessagesForSelf = (
     sender: 'Yinbox',
     recipient: sender,
     message: `Don't feel like talking to yourself? Start a conversation with someone.`,
-    messageType: MessageTypes.Invite,
+    messageType: MessageTypes.Message,
     createdTimeUTC: new Date().getTime(),
   });
 

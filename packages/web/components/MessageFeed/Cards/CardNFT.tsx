@@ -10,9 +10,10 @@ interface CardNFTProps {
   sender: string;
   content: string;
   align: 'left' | 'right';
+  timestamp?: number;
 }
 
-const CardNFT = ({ sender, content, align }: CardNFTProps) => {
+const CardNFT = ({ sender, content, align, timestamp }: CardNFTProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isInvalid, setIsInvalid] = useState<boolean>(false);
   const [nft, setNFT] = useState<NonFungibleToken>();
@@ -50,7 +51,7 @@ const CardNFT = ({ sender, content, align }: CardNFTProps) => {
 
   return (
     <div className={classnames(align === 'left' ? styles.messageItemLeft : styles.messageItemRight)}>
-      <div className={classnames('shadow p-3 mb-3 bg-white', styles.messageItem)}>
+      <div className={classnames('shadow p-3 bg-white', styles.messageItem)}>
         <div className={styles.userName}>
           <b>{sender}</b>
         </div>
@@ -98,6 +99,9 @@ const CardNFT = ({ sender, content, align }: CardNFTProps) => {
           </>
         )}
       </div>
+      {timestamp && (
+        <div className={styles.timestamp}>{new Date(timestamp).toLocaleTimeString()}</div>
+      )}
     </div>
   );
 };

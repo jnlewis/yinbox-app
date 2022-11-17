@@ -1,0 +1,32 @@
+.wrapper {
+  padding: 20px 25px;
+  height: 70px;
+  // background-color: white;
+  // box-shadow: 0 4px 2px -3px #e1e1e1;
+}
+
+.buttonsContainer {
+  float: right;
+}
+
+.inputBox {
+  max-width: 80%;
+}
+
+.username {
+  color: #433b4c;
+  padding-left: 10px;
+  font-weight: bold;
+  text-shadow: #fff 1px 0 10px;
+}
+
+.userDisplay {
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  padding: 5px;
+  color: #fff;
+  text-align: center;
+  display: inline-block;
+  vertical-align: middle;
+}

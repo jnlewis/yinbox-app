@@ -1,0 +1,27 @@
+.tagsWrapper {
+  display: flex;
+  gap: 8px;
+  margin: 0px;
+  padding: 0px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.tagsItem {
+  background: #e9ebed;
+  color: #333f48;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 20px;
+  border-radius: 100px;
+  list-style: none;
+  display: inline-block;
+  padding: 4px 8px;
+  gap: 8px;
+  cursor: pointer;
+
+  a {
+    text-decoration: none;
+    letter-spacing: normal;
+  }
+}

@@ -1,0 +1,23 @@
+.wrapper {
+  padding: 10px 25px;
+  background-color: #0000001a;
+  height: 56px;
+  box-shadow: 0 4px 2px -3px #e1e1e1;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+}
+
+.inputContainer {
+  flex: 50%;
+}
+
+.buttonsContainer {
+  flex: 20%;
+}
+
+.sendButton {
+  background-color: white;
+  margin-left: 8px;
+}

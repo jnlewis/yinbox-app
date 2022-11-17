@@ -1,0 +1,6 @@
+test-result
+node_modules
+.next
+/docs
+.vscode
+.github

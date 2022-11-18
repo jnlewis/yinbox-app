@@ -24,12 +24,14 @@ const MessageInput = ({ recipientName, disabled, onSend }: MessageInputDialogPro
     }
   };
 
+  const placeholder = disabled ? `This conversation is locked. Please approve to message ${recipientName}` : `Message ${recipientName}`;
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.inputContainer}>
         <Form.Control
           type="text"
-          placeholder={`Message ${recipientName}`}
+          placeholder={placeholder}
           value={inputMessage}
           onChange={(e) => setInputMessage(e.target.value)}
           onKeyPress={(e) => handleOnKeyUp(e)}

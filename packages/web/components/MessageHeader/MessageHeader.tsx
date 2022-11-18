@@ -5,15 +5,19 @@ import seedColor from 'seed-color';
 
 interface MessageHeaderProps {
   name: string;
+  isSelf: boolean;
   onPrimaryClick: () => void;
 }
 
 const MessageHeader = ({
   name,
+  isSelf,
   onPrimaryClick,
 }: MessageHeaderProps) => {
   
   const abbrev = name.slice(0,1).toUpperCase();
+
+  name = isSelf ? `${name} (You)` : name;
 
   return (
     <div className={styles.wrapper}>

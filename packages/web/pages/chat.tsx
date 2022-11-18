@@ -52,7 +52,7 @@ const Chat: NextPage = () => {
               <div id="page-content-wrapper">
                 {selectedChat && (
                   <>
-                    <MessageHeader name={selectedChat.participant} onPrimaryClick={() => setIsMenuOpen(!isMenuOpen)} />
+                    <MessageHeader name={selectedChat.participant} onPrimaryClick={() => setIsMenuOpen(!isMenuOpen)} isSelf={selectedChat.participant === getLocalWalletAddress()} />
                     <div className="page-content">
                       <MessageFeed chat={selectedChat} isSelf={selectedChat.participant === getLocalWalletAddress()} />
                     </div>

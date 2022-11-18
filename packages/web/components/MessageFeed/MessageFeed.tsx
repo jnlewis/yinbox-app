@@ -119,7 +119,7 @@ const MessageFeed = ({ chat, isSelf }: MessageFeedProps) => {
   return (
     <>
       <div className={styles.messageContainer}>
-        {isLoading && <div>loading...</div>}
+        {isLoading && <div className={styles.loadingText}>Loading conversation...</div>}
         {!isLoading &&
           messages &&
           messages.map((message, index) => {

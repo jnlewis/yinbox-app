@@ -1,10 +1,11 @@
-import NewMessageDialog from 'components/dialogs/NewMessageDialog/NewMessageDialog';
+import NewConversationDialog from 'components/dialogs/NewConversationDialog/NewConversationDialog';
 import UserDisplay from 'components/UserDisplay/UserDisplay';
 import { Chat } from 'core/entities/chat';
 import logger from 'core/logger/logger';
 import { getConnectedWallet, getLocalWalletAddress } from 'modules/wallet/wallet';
 import React, { useEffect, useState } from 'react';
 import { fetchOwnerChats } from 'services/web/chatService';
+import { reject } from 'lodash';
 
 interface SideBarProps {
   isOpen: boolean;
@@ -14,29 +15,30 @@ interface SideBarProps {
 
 const SideBar = ({ isOpen, walletAddress, onSelectChat }: SideBarProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [showNewMessageDialog, setShowNewMessageDialog] = useState(false);
+  const [showNewConversationDialog, setShowNewConversationDialog] = useState(false);
   const [chats, setChats] = useState<Chat[]>();
   const [selectedParticipant, setSelectedParticipant] = useState<string>();
 
   useEffect(() => {
     loadChats();
-  }, [chats]);
+  }, []);
 
   const loadChats = async () => {
-    if (chats?.length >= 0) {
-      return;
-    }
-
     setIsLoading(true);
 
     let chatsData = await fetchOwnerChats(walletAddress);
 
     // Order self chat to highest in list
     if (chatsData) {
+      // Find self chat
       let selfChat = chatsData.find(
         (item) => item.owner === walletAddress && item.participant === walletAddress,
       );
-      chatsData.splice(chatsData.indexOf(selfChat));
+
+      // Get chats that is not self
+      chatsData = reject(chatsData, (item) => item.owner === walletAddress && item.participant === walletAddress);
+
+        // Inserts self chat to the first
       chatsData.unshift(selfChat);
     }
 
@@ -46,13 +48,13 @@ const SideBar = ({ isOpen, walletAddress, onSelectChat }: SideBarProps) => {
   };
 
   const handleNewMessage = () => {
-    setShowNewMessageDialog(true);
+    setShowNewConversationDialog(true);
   };
 
-  const handleStartedConversation = (accountId: string) => {
-    setShowNewMessageDialog(false);
-    // TODO: add to list of users
-    // TODO: open the chat
+  const handleStartedConversation = async (accountId: string) => {
+    setShowNewConversationDialog(false);
+
+    await loadChats();
   };
 
   const handleSelectChat = (chat: Chat) => {
@@ -94,10 +96,10 @@ const SideBar = ({ isOpen, walletAddress, onSelectChat }: SideBarProps) => {
           </nav>
         </div>
       </div>
-      {showNewMessageDialog && (
-        <NewMessageDialog
+      {showNewConversationDialog && (
+        <NewConversationDialog
           show={true}
-          onCancel={() => setShowNewMessageDialog(false)}
+          onCancel={() => setShowNewConversationDialog(false)}
           onStartedConversation={(accountId: string) => handleStartedConversation(accountId)}
         />
       )}

@@ -1,27 +1,27 @@
 import React, { useState } from 'react';
-import styles from './NewMessageDialog.module.scss';
+import styles from './NewConversationDialog.module.scss';
 import { Modal, Button, Form } from 'react-bootstrap';
 import { createChat } from 'services/web/chatService';
 import { getLocalWalletAddress } from 'modules/wallet/wallet';
 
-interface NewMessageDialogProps {
+interface NewConversationDialogProps {
   show: boolean;
   onCancel: () => void;
   onStartedConversation: (accountId: string) => void;
 }
 
-export default function NewMessageDialog({
+export default function NewConversationDialog({
   show,
   onCancel,
   onStartedConversation,
-}: NewMessageDialogProps) {
+}: NewConversationDialogProps) {
 
   const [messageDialogTitle, setMessageDialogTitle] = useState('');
   const [messageDialogDescription, setMessageDialogDescription] = useState('');
   const [showMessageDialog, setShowMessageDialog] = useState(false);
 
   const [isLoading, setIsLoading] = useState(false);
-  const [inputAccountId, setInputAccountId] = useState('jeffreylewis-bob.testnet'); // TODO:
+  const [inputAccountId, setInputAccountId] = useState();
 
   const showMessage = (title: string, message: string) => {
     setMessageDialogTitle(title);

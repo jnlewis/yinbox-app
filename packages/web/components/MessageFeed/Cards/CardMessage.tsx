@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './CardMessage.module.scss';
 import classnames from 'classnames';
+import { formatTime } from 'core/helpers/datetimeHelper';
 
 interface CardMessageProps {
   sender: string;
@@ -18,7 +19,7 @@ const CardMessage = ({ sender, message, align, timestamp }: CardMessageProps) =>
         <div>{message}</div>
       </div>
       {timestamp && (
-        <div className={styles.timestamp}>{new Date(timestamp).toLocaleTimeString()}</div>
+        <div className={styles.timestamp}>{formatTime(new Date(timestamp))}</div>
       )}
     </div>
   );

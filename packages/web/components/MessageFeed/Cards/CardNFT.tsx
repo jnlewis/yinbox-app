@@ -5,6 +5,7 @@ import NonFungible from 'modules/nonFungible/nonFungible';
 import { Blockchains } from 'core/enums/blockchains';
 import logger from 'core/logger/logger';
 import { NonFungibleToken } from 'modules/nonFungible/types/nonFungibleToken';
+import { formatTime } from 'core/helpers/datetimeHelper';
 
 interface CardNFTProps {
   sender: string;
@@ -100,7 +101,7 @@ const CardNFT = ({ sender, content, align, timestamp }: CardNFTProps) => {
         )}
       </div>
       {timestamp && (
-        <div className={styles.timestamp}>{new Date(timestamp).toLocaleTimeString()}</div>
+        <div className={styles.timestamp}>{formatTime(new Date(timestamp))}</div>
       )}
     </div>
   );

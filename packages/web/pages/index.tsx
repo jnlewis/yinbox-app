@@ -31,32 +31,17 @@ const ComingSoon: NextPage = () => {
                   </Button>
                   <Button
                     className={styles.buttonDefault}
-                    href="https://youtu.be/gnYzLlfsFsY"
-                    target="_blank"
+                    href="#learn-more"
                   >
                     Learn more
                   </Button>
                 </div>
               </div>
             </Col>
-            <Col md={5} sm={12}>
-              <div className={styles.introImageContainer}>
-                <img className={styles.introImage} src="/assets/yinbox/ss-intro.png" />
-              </div>
-            </Col>
-            <Col md={1} sm={12}></Col>
           </Row>
         </Container>
         <Container>
-          {/* <Row>
-              <Col md={12} sm={12}>
-                <div id="demo" className={styles.demoContainer}>
-                  <h2 className={styles.demoTitle}>Watch the Demo</h2>
-                  <iframe width="560" height="315" src="https://www.youtube.com/embed/gnYzLlfsFsY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                </div>
-              </Col>
-            </Row> */}
-          <div style={{ background: '#eff5f5' }} className="mt-5">
+          <div id="learn-more" style={{ background: '#eff5f5' }} className="mt-5">
             <Row className="section-container advanced-section">
               <Col md={6} sm={6}>
                 <div className="feature-image">

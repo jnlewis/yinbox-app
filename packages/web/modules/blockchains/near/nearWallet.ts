@@ -39,7 +39,7 @@ export async function connect(walletConnection: WalletConnection) {
   walletConnection.requestSignIn({
     contractId: CONTRACT_NAME,
     methodNames: ['create_conversation'],
-    successUrl: '',
+    successUrl: '/chat',
     failureUrl: '',
   });
 }

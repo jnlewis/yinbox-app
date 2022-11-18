@@ -66,9 +66,9 @@ const SideBar = ({ isOpen, walletAddress, onSelectChat }: SideBarProps) => {
     <>
       <div id="sidebar-wrapper" style={{ marginLeft: `${isOpen ? '0' : '-360px'}` }}>
         <div className="sidebar">
-          <div>
+          <a href="/">
             <img src="/assets/yinbox/yinbox-logo-dark.svg" alt="Yinbox" width={150} />
-          </div>
+          </a>
           <nav className="tree-nav">
             <a className="tree-nav__item-title highlight" onClick={() => handleNewMessage()}>
               NEW CONVERSATION

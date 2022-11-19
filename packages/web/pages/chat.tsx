@@ -8,22 +8,24 @@ import MessageFeed from 'components/MessageFeed/MessageFeed';
 import SideBar from 'components/SideBar/SideBar';
 import MessageHeader from 'components/MessageHeader/MessageHeader';
 import { Chat } from 'core/entities/chat';
-import { getConnectedWallet, getLocalWalletAddress } from 'modules/wallet/wallet';
 import logger from 'core/logger/logger';
+import WalletManager from 'modules/walletManager/walletManager';
 
 const Chat: NextPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(true);
   const [selectedChat, setSelectedChat] = useState<Chat>(null);
-  const [isConnected, setIsConnected] = useState<boolean>(false);
+  const [isWalletConnected, setWalletIsConnected] = useState<boolean>(false);
 
   useEffect(() => {
     const init = async () => {
-      const connectedWallet = await getConnectedWallet();
-      if (connectedWallet) {
-        setIsConnected(true);
-      }
+      const isSignedIn = await WalletManager.startUpWallet();
+      setWalletIsConnected(isSignedIn);
       setIsLoading(false);
+
+      if (!isSignedIn) {
+        location.href = '/';
+      }
     };
     init();
   }, []);
@@ -40,21 +42,20 @@ const Chat: NextPage = () => {
       <main className={styles.main}>
         <Container fluid>
           {isLoading && (<div>Loading...</div>)}
-          {!isLoading && !isConnected && <div>Please connect wallet</div>}
-          {!isLoading && isConnected && (
+          {!isLoading && isWalletConnected && (
             <Row className="flex-container">
               <SideBar
                 isOpen={isMenuOpen}
-                walletAddress={getLocalWalletAddress()}
+                walletAddress={WalletManager.getWalletAddress()}
                 onSelectChat={(chat) => handleSelectChat(chat)}
               />
 
               <div id="page-content-wrapper">
                 {selectedChat && (
                   <>
-                    <MessageHeader name={selectedChat.participant} onPrimaryClick={() => setIsMenuOpen(!isMenuOpen)} isSelf={selectedChat.participant === getLocalWalletAddress()} />
+                    <MessageHeader name={selectedChat.participant} onPrimaryClick={() => setIsMenuOpen(!isMenuOpen)} isSelf={selectedChat.participant === WalletManager.getWalletAddress()} />
                     <div className="page-content">
-                      <MessageFeed chat={selectedChat} isSelf={selectedChat.participant === getLocalWalletAddress()} />
+                      <MessageFeed chat={selectedChat} isSelf={selectedChat.participant === WalletManager.getWalletAddress()} />
                     </div>
                   </>
                 )}

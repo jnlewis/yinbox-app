@@ -1,8 +1,6 @@
 import NewConversationDialog from 'components/dialogs/NewConversationDialog/NewConversationDialog';
 import UserDisplay from 'components/UserDisplay/UserDisplay';
 import { Chat } from 'core/entities/chat';
-import logger from 'core/logger/logger';
-import { getConnectedWallet, getLocalWalletAddress } from 'modules/wallet/wallet';
 import React, { useEffect, useState } from 'react';
 import { fetchOwnerChats } from 'services/web/chatService';
 import { reject } from 'lodash';
@@ -38,8 +36,10 @@ const SideBar = ({ isOpen, walletAddress, onSelectChat }: SideBarProps) => {
       // Get chats that is not self
       chatsData = reject(chatsData, (item) => item.owner === walletAddress && item.participant === walletAddress);
 
-        // Inserts self chat to the first
-      chatsData.unshift(selfChat);
+      // Inserts self chat to the first
+      if (selfChat) {
+        chatsData.unshift(selfChat);
+      }
     }
 
     setChats(chatsData);

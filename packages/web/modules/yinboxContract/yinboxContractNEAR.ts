@@ -5,47 +5,14 @@ import { Config } from 'core/config/config';
 import NEARUtils from 'modules/blockchains/near/nearUtils';
 import { Fees } from 'modules/blockchains/near/interface/fees';
 import { Conversation } from './interface/conversation';
+import { Wallet } from 'modules/blockchains/near/nearWalletSelector';
 
 class YinboxContractNEAR {
-
-  // async getAllConversations(
-  //   walletConnection: WalletConnection,
-  // ): Promise<Conversation | null> {
-  //   try {
-  //     logger.logInfo(
-  //       'getAllConversations',
-  //       `Begin`,
-  //     );
-
-  //     const nearAccount = await walletConnection.account();
-  //     const contract = this.getYinboxContract(nearAccount);
-
-  //     const response = await (contract as any).get_all_conversations();
-
-  //     logger.logInfo('getAllConversations', `get_all_conversations: ${response}`);
-
-  //     if (response) {
-  //       const result: Conversation = {
-  //         conversationId: response.conversation_id,
-  //         participantA: response.participant_a,
-  //         participantB: response.participant_b,
-  //         createdBy: response.created_by,
-  //         feePaid: response.fee_paid,
-  //         status: response.status,
-  //       };
-  //       return result;
-  //     } else {
-  //       return null;
-  //     }
-  //   } catch (e) {
-  //     logger.logError('getAllConversations', 'Failed.', e);
-  //   }
-  // }
 
   async getConversation(
     sender: string,
     recipient: string,
-    walletConnection: WalletConnection,
+    wallet: Wallet,
   ): Promise<Conversation | null> {
     try {
       logger.logInfo(
@@ -53,10 +20,15 @@ class YinboxContractNEAR {
         `Begin. sender: ${sender}, recipient: ${recipient}`,
       );
 
-      const nearAccount = await walletConnection.account();
-      const contract = this.getYinboxContract(nearAccount);
+      // const nearAccount = await walletConnection.account();
+      // const contract = this.getYinboxContract(nearAccount);
+      // const response = await (contract as any).get_conversation({ sender, recipient });
 
-      const response = await (contract as any).get_conversation({ sender, recipient });
+      const response = await wallet.viewMethod({
+        contractId: Config.yinboxContractNEAR,
+        method: 'get_conversation',
+        args: { sender, recipient },
+      });
 
       logger.logInfo('getConversation', `get_conversation: ${response}`);
 
@@ -80,7 +52,7 @@ class YinboxContractNEAR {
 
   async createConversation(
     recipient: string,
-    walletConnection: WalletConnection,
+    wallet: Wallet,
     fees?: Fees,
   ): Promise<void> {
     try {
@@ -92,16 +64,14 @@ class YinboxContractNEAR {
         `Begin. recipient: ${recipient}`,
       );
 
-      const nearAccount = await walletConnection.account();
-      const contract = this.getYinboxContract(nearAccount);
-
-      const response = await (contract as any).create_conversation(
-        {
-          recipient,
-        },
+      const response = await wallet.callMethod({
+        contractId: Config.yinboxContractNEAR,
+        method: 'create_conversation',
+        args: { recipient },
         gas,
-        depositAmount,
-      );
+        deposit: depositAmount,
+      });
+
 
       logger.logInfo('createConversation', `Response: ${response}`);
     } catch (e) {
@@ -109,17 +79,10 @@ class YinboxContractNEAR {
     }
   }
 
-  private getYinboxContract(account: ConnectedWalletAccount) {
-    return new nearAPI.Contract(account, Config.yinboxContractNEAR, {
-      viewMethods: ['get_conversation'],
-      changeMethods: ['create_conversation'],
-    });
-  }
-
   private getGas(fees?: Fees): string {
     return fees ? NEARUtils.convertGasToTGAS(fees?.gasFee) : '0';
   }
-
+  
   private getDepositAmount(fees?: Fees): string {
     return fees ? NEARUtils.convertNEARToYoctoNEAR(fees?.depositAmount) : '0';
   }

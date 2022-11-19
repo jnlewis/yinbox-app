@@ -10,6 +10,10 @@
     "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,scss,md,json}' --config ./.prettierrc"
   },
   "dependencies": {
+    "@near-wallet-selector/core": "^7.2.0",
+    "@near-wallet-selector/ledger": "^7.2.0",
+    "@near-wallet-selector/modal-ui": "^7.2.0",
+    "@near-wallet-selector/my-near-wallet": "^7.2.0",
     "@nearfoundation/near-js-encryption-box": "^0.1.2",
     "axios": "^0.27.2",
     "big.js": "^6.2.1",
@@ -18,7 +22,7 @@
     "crypto-js": "^4.1.1",
     "lodash": "^4.17.21",
     "mongodb": "^4.8.0",
-    "near-api-js": "^1.0.0",
+    "near-api-js": "^0.44.2",
     "next": "12.2.0",
     "react": "18.2.0",
     "react-bootstrap": "^2.4.0",

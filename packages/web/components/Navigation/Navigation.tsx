@@ -3,12 +3,10 @@ import { Navbar, Button, NavDropdown } from 'react-bootstrap';
 import styles from './Navigation.module.scss';
 import { Blockchains } from 'core/enums/blockchains';
 import SelectBlockchainDialog from 'components/dialogs/SelectBlockchainDialog/SelectBlockchainDialog';
-import {
-  connectWallet,
-  disconnectWallet,
-  getConnectedWallet,
-  getLocalWalletAddress,
-} from 'modules/wallet/wallet';
+import WalletManager from 'modules/walletManager/walletManager';
+import { signInUser } from 'services/web/userService';
+import { createChat } from 'services/web/chatService';
+import logger from 'core/logger/logger';
 
 interface NavigationProps {
   showConnectWallet?: boolean;
@@ -17,23 +15,26 @@ interface NavigationProps {
 const Navigation = ({ showConnectWallet }: NavigationProps) => {
   const [showSelectBlockchainDialog, setShowSelectBlockchainDialog] = useState(false);
   const [isReady, setIsReady] = useState<boolean>(false);
-
   const [walletIsConnected, setWalletIsConnected] = useState<boolean>(false);
-  const [walletBlockchain, setWalletBlockchain] = useState<Blockchains>();
-  const [walletAddress, setWalletAddress] = useState<string>();
 
   useEffect(() => {
     const init = async () => {
-      const connectedWallet = await getConnectedWallet();
-      if (connectedWallet) {
-        setWalletIsConnected(true);
-        setWalletBlockchain(connectedWallet.blockchain);
-        setWalletAddress(connectedWallet.address);
-      }
+      const isSignedIn = await WalletManager.startUpWallet();
+      setWalletIsConnected(isSignedIn);
       setIsReady(true);
 
-      if (showConnectWallet) {
-        setShowSelectBlockchainDialog(true);
+      if (isSignedIn) {
+        
+        // Signin user and create self chat
+        try {
+          await Promise.all([
+            signInUser({accountId: WalletManager.getWalletAddress()}),
+            createChat({ owner: WalletManager.getWalletAddress(), participant: WalletManager.getWalletAddress() }),
+          ]);
+        }
+        catch(e) {
+          logger.logWarning('signIn', 'Failed to sign in user.');
+        }
       }
     };
     init();
@@ -44,8 +45,9 @@ const Navigation = ({ showConnectWallet }: NavigationProps) => {
   };
 
   const handleDisconnect = async () => {
-    await disconnectWallet();
-    location.href = '/';
+    await WalletManager.signOut();
+    // await disconnectWallet();
+    // location.href = '/';
   };
 
   const handleConnectCancelled = async () => {
@@ -54,7 +56,7 @@ const Navigation = ({ showConnectWallet }: NavigationProps) => {
 
   const handleConnectBlockchainSelected = async (blockchain: Blockchains) => {
     setShowSelectBlockchainDialog(false);
-    await connectWallet(blockchain);
+    await WalletManager.signIn(blockchain);
   };
 
   return (
@@ -73,7 +75,7 @@ const Navigation = ({ showConnectWallet }: NavigationProps) => {
             </Navbar.Text>
             <NavDropdown title="Wallet">
               <Navbar.Text>
-                <div className={styles.account}>{getLocalWalletAddress()}</div>
+                <div className={styles.account}>{WalletManager.getWalletAddress()}</div>
               </Navbar.Text>
               <NavDropdown.Item className={styles.linkItemBold} onClick={() => handleDisconnect()}>
                 Disconnect
@@ -84,7 +86,7 @@ const Navigation = ({ showConnectWallet }: NavigationProps) => {
         {isReady && !walletIsConnected && (
           <Navbar.Collapse className="justify-content-end">
             <Navbar.Text>
-              <a className={styles.linkItemBold} onClick={() => handleConnect()}>
+              <a className={styles.linkItemBoldWhite} onClick={() => handleConnect()}>
                 Connect Wallet
               </a>
             </Navbar.Text>

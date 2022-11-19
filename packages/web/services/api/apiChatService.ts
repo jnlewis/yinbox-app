@@ -15,6 +15,9 @@ export const apiCreateChat = async (
 ): Promise<ApiCreateChatResponse> => {
   try {
     logger.logInfo('apiCreateChat', 'Begin');
+    if (!sender || !recipient) {
+      return;
+    }
 
     const existingChats = await apiGetChatsByOwner(sender);
     if (existingChats && existingChats.find(item => item.participant === recipient)) {

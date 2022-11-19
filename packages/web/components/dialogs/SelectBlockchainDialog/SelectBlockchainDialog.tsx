@@ -24,7 +24,7 @@ export default function SelectBlockchainDialog({
           <a onClick={() => onSelect(Blockchains.NEAR)}>
             <img src="/assets/icons/near-protocol-near-logo.svg" alt="NEAR" />
             <span>NEAR</span>
-            <span className={styles.muted}>NEAR Wallet</span>
+            <span className={styles.muted}>Choose a wallet</span>
           </a>
         </div>
       </Modal.Body>

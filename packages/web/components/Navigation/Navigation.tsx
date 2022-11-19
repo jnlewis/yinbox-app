@@ -40,6 +40,10 @@ const Navigation = ({ showConnectWallet }: NavigationProps) => {
     init();
   }, []);
 
+  useEffect(() => {
+    setShowSelectBlockchainDialog(showConnectWallet);
+  }, [showConnectWallet]);
+
   const handleConnect = async () => {
     setShowSelectBlockchainDialog(true);
   };

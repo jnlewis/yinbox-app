@@ -51,6 +51,9 @@
     text-align: left;
     min-height: auto;
   }
+  .advanced-description {
+    padding-top: 24px;
+  }
   .advanced-description h3 {
     font-size: 26px;
     font-weight: 700;
@@ -118,4 +121,35 @@
       text-decoration: none;
       font-size: 18px;
   }
-  
+
+  .framed-image {
+    width: 100%;
+    border: solid 10px black;
+    border-radius: 10px;
+  }
+
+  .long-image {
+    width: 100%;
+
+    @media (min-width: 768px) {
+      width: 80%;
+    }
+  }
+
+  .illustration {
+    text-align: center;
+    img {
+      width: 300px;
+    }
+  }
+
+  .intro-illustration {
+    margin-top: 170px;
+    text-align: center;
+    img {
+      width: 320px;
+    }
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }

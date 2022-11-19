@@ -8,7 +8,9 @@ const Footer = () => {
       <Container>
         <Row>
           <Col lg={4} md={4}>
-            <div className={styles.brand}>Yinbox</div>
+            <div className={styles.brand}>
+              <img src="/assets/yinbox/yinbox-logo-dark.svg" alt="Yinbox" />
+            </div>
             <p className={styles.appDescription}>
               Yinbox is the first fully integrated messenger app with end-to-end encryption and spam prevention on NEAR
             </p>
@@ -23,7 +25,7 @@ const Footer = () => {
             </div>
           </Col>
           <Col lg={8} md={8}>
-            <Container>
+            <Container style={{ paddingTop: 12 }}>
               <Row>
                 <Col lg={4} md={4}>
                   <b>My Account</b>

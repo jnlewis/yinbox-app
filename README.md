@@ -59,7 +59,7 @@ Yinbox is the first fully integrated messenger app with end-to-end encryption an
 ## Technologies
 
 <p align="center">
-    <img width="600px" src="https://raw.githubusercontent.com/jnlewis/yinbox-app/main/docs/images/diagram-architecture.jpg" alt="Process">
+    <img width="600px" src="https://raw.githubusercontent.com/jnlewis/yinbox-app/main/docs/images/yinbox-architecture.jpg" alt="Architecture">
 </p>
 
 **Web Application (UX)**

@@ -96,13 +96,7 @@ export function create_conversation(recipient: string): void {
   // TODO: if user attached more deposit than the minimum fee, refund them the balance
   const received_deposit = context.attachedDeposit;
   const min_fee = get_config_fee();
-  logging.log(
-    "[create_conversation] Received deposit: " + received_deposit.toString()
-  );
-  logging.log(
-    "[create_conversation] Minimum deposit: " + min_fee.toString()
-  );
-  // assert(received_deposit >= min_fee, "Insufficient fee. The minimum required fee is " + min_fee.toString());
+  assert(received_deposit >= min_fee, "Insufficient fee. The minimum required fee is " + min_fee.toString());
 
   // Generate new conversation ID
   const new_conversation_id = generate_conversation_id();

@@ -15,8 +15,6 @@ export const sendMessage = async (
   try {
     logger.logInfo('sendMessage', 'Begin');
 
-    // TODO: verify sender
-
     const response = await axios.post('/api/messages/send', {
       threadId,
       sender,

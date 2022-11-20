@@ -13,7 +13,7 @@ export const signInUser = async ({
       return;
     }
 
-    // TODO: verify sender
+    // TODO: verify sender using ed25519
 
     const response = await axios.post('/api/users/signin', {
       accountId,

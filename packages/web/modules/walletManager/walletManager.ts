@@ -1,10 +1,5 @@
-import { NearWalletInfo, WalletInfo } from './types/walletInfo';
-import * as NearWallet from 'modules/blockchains/near/nearWallet';
-import localStorage from 'core/storage/localStorage';
+
 import { Blockchains } from 'core/enums/blockchains';
-import logger from 'core/logger/logger';
-import { signInUser } from 'services/web/userService';
-import { createChat } from 'services/web/chatService';
 import { Wallet } from 'modules/blockchains/near/nearWalletSelector';
 import { Config } from 'core/config/config';
 
@@ -25,17 +20,6 @@ export class WalletManager {
     if (blockchain === Blockchains.NEAR) {
       await this.wallet.signIn();
     }
-
-    // // Signin user and create self chat
-    // try {
-    //   await Promise.all([
-    //     signInUser({accountId: this.wallet.accountId}),
-    //     createChat({ owner: this.wallet.accountId, participant: this.wallet.accountId }),
-    //   ]);
-    // }
-    // catch(e) {
-    //   logger.logWarning('signIn', 'Failed to sign in user.');
-    // }
   };
 
   signOut = async () => {

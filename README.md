@@ -46,15 +46,13 @@ Yinbox is the first fully integrated messenger app with end-to-end encryption an
     <img src="https://raw.githubusercontent.com/jnlewis/yinbox-app/main/docs/images/yinbox-flow.jpg" alt="Process Flow">
 </p>
 
-1. **Seller** creates a listing by transferring their NFT to the exchange smart contract. The exchange contract creates a listing record tied to the receiving NFT and the seller account ID.
+1. **Wallet Sign-In** Users first connect their wallet using a wallet provider like My NEAR Wallet, then signs a message to Yinbox Authentication API, which verifies the authenticity and returns a generated JWT token for subsequent Yinbox API calls.
 
-2. **Buyer** make an offer on a listing by transferring their NFT to exchange smart contract. The exchange contract creates an offer record tied to the receiving NFT and the buyer account ID.
+2. **End-To-End Encryption** When starting a conversation with anyone, a session key is generated. This session key is unique for each conversation between two people, and is used to encrypt and decrypt messages on the browser.
 
-3. If **seller** accepts the offer, the exchange contract transfers the offer NFT to the seller and the listing NFT to the buyer.
+3. **Fee Based Spam Protection** For new conversation, Yinbox Smart Contract receives an unlock fee and stores the conversation unlock record on the blockchain. The unlock fee is configurable to maintain a balance between spam prevention and usage feasibility.
 
-4. If **seller** cancels a listing, the exchange contract refunds the listing NFT back to the seller and deletes the listing record.
-
-5. If **buyer** retracts an offer, the exchange contract refunds the offer NFT back to the buyer and deletes the offer record.
+4. **Message Transmission** All messages are encrypted on users browser using the conversation session key before they are sent across the network. They remain encrypted even on Yinbox and is only decrypted on the recipient browser.
 
 ## Technologies
 
@@ -64,15 +62,23 @@ Yinbox is the first fully integrated messenger app with end-to-end encryption an
 
 **Web Application (UX)**
 
-- The frontend web application is developed in React using the **NextJS** framework. Integrates with NEAR blockchain via the [near-api-js](https://docs.near.org/docs/api/javascript-library) SDK.
+- The frontend web application is developed in **React** using the **NextJS** framework.
+
+**Wallet Provider**
+
+- The wallet provider used to integrate with NEAR, using [NEAR Wallet Selector](https://github.com/near/wallet-selector).
 
 **Blockchain Smart Contract**
 
-- **Yinbox Contract**: NEAR Smart Contract writen in AssemblyScript repesenting the exchange contract. This contract is responsible for the marketplace functionalities including listing, offering, transactions and accounts management. See [NFT Exchange Contract functions](#yinbox-app-contract-functions) for functions.
+- **Yinbox Contract**: NEAR Smart Contract writen in AssemblyScript responsible for creating and verifying chat conversations. See [Yinbox Smart Contract Developer Readme](https://github.com/jnlewis/yinbox-app/tree/main/packages/contract/near) for interface methods.
 
 **Yinbox API**
 
+- The REST API is developed in **NodeJS**, and acts as the interface between the Frontend Web Application with the underlying application and off-chain database. 
+
 **Off-Chain Database**
+
+- The offchain database allows for instant and zero fees messaging. All messages stored on the offchain database is encrypted and secured.
 
 ## Live Product Preview
 
@@ -93,16 +99,15 @@ This is an early build version of the application on testnet. The smart contract
 
 #### Smart Contracts Quick Start
 
-Refer to the [Yinbox Smart Contract Developer Readme](https://github.com/jnlewis/yinbox-app/tree/main/packages/contract/near)
+- Refer to the [Yinbox Smart Contract Developer Readme](https://github.com/jnlewis/yinbox-app/tree/main/packages/contract/near)
 
 #### Smart Contracts Functions and Interface
 
-Refer to the [Yinbox Smart Contract Developer Readme](https://github.com/jnlewis/yinbox-app/tree/main/packages/contract/near)
+- Refer to the [Yinbox Smart Contract Developer Readme](https://github.com/jnlewis/yinbox-app/tree/main/packages/contract/near)
 
 #### Web and API Quick Start
 
-Refer to the Web Application and API readme for further details on development.
-[Web Application Developer Readme](https://github.com/jnlewis/yinbox-app/tree/main/packages/web/README.md)
+- Refer to the [Web Application Developer Readme](https://github.com/jnlewis/yinbox-app/tree/main/packages/web/README.md)
 
 
 ## License

@@ -115,8 +115,8 @@ Refer to the Web Application and API readme for further details on development.
     <img src="https://raw.githubusercontent.com/jnlewis/yinbox-app/main/docs/screenshots/screenshot-chat.png" alt="">
 </p>
 <p align="center">
-    <img src="https://raw.githubusercontent.com/jnlewis/yinbox-app/main/docs/screenshots/landing-1.png" alt="">
+    <img src="https://raw.githubusercontent.com/jnlewis/yinbox-app/main/docs/screenshots/screenshot-landing-1.png" alt="">
 </p>
 <p align="center">
-    <img src="https://raw.githubusercontent.com/jnlewis/yinbox-app/main/docs/screenshots/landing-2.png" alt="">
+    <img src="https://raw.githubusercontent.com/jnlewis/yinbox-app/main/docs/screenshots/screenshot-landing-2.png" alt="">
 </p>

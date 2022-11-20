@@ -2,13 +2,12 @@ import type { NextPage } from 'next';
 import styles from '../styles/Home.module.scss';
 import PageHead from '../components/PageHead/PageHead';
 import { Button, Col, Container, Row, Card } from 'react-bootstrap';
-import { BsChevronRight } from 'react-icons/bs';
 import Navigation from 'components/Navigation/Navigation';
 import Footer from 'components/Footer/Footer';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import WalletManager from 'modules/walletManager/walletManager';
 
-const ComingSoon: NextPage = () => {
+const MainLanding: NextPage = () => {
   const [showConnectWallet, setShowConnectWallet] = useState<boolean>(false);
 
   const handleStartConversationClick = () => {
@@ -137,4 +136,4 @@ export const getServerSideProps = async (context: any) => {
   };
 };
 
-export default ComingSoon;
+export default MainLanding;

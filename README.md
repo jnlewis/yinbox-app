@@ -93,33 +93,30 @@ This is an early build version of the application on testnet. The smart contract
 
 #### Smart Contracts Quick Start
 
-Refer to the Yinbox NEAR Smart Contract readme for further details on development.
-[Yinbox Smart Contract Developer Readme](/contracts/near/README.md)
+Refer to the [Yinbox Smart Contract Developer Readme](https://github.com/jnlewis/yinbox-app/tree/main/packages/contract/near)
 
 #### Smart Contracts Functions and Interface
 
-Refer to the Yinbox NEAR Smart Contract readme for further details.
-[Yinbox Smart Contract Developer Readme](/contracts/near/README.md)
+Refer to the [Yinbox Smart Contract Developer Readme](https://github.com/jnlewis/yinbox-app/tree/main/packages/contract/near)
 
 #### Web and API Quick Start
 
 Refer to the Web Application and API readme for further details on development.
-[Web Application Developer Readme](/contracts/web/README.md)
+[Web Application Developer Readme](https://github.com/jnlewis/yinbox-app/tree/main/packages/web/README.md)
+
+
+## License
+
+[Apache 2.0](https://github.com/jnlewis/yinbox-app/blob/main/LICENSE)
 
 ## Screenshots
 
 <p align="center">
-    <img src="https://raw.githubusercontent.com/jnlewis/yinbox-app/main/docs/images/screenshot-mainlanding.png" alt="">
+    <img src="https://raw.githubusercontent.com/jnlewis/yinbox-app/main/docs/screenshots/screenshot-chat.png" alt="">
 </p>
 <p align="center">
-    <img src="https://raw.githubusercontent.com/jnlewis/yinbox-app/main/docs/images/screenshot-create-listing.png" alt="">
+    <img src="https://raw.githubusercontent.com/jnlewis/yinbox-app/main/docs/screenshots/landing-1.png" alt="">
 </p>
 <p align="center">
-    <img src="https://raw.githubusercontent.com/jnlewis/yinbox-app/main/docs/images/screenshot-view-listing.png" alt="">
-</p>
-<p align="center">
-    <img src="https://raw.githubusercontent.com/jnlewis/yinbox-app/main/docs/images/screenshot-make-offer.png" alt="">
-</p>
-<p align="center">
-    <img src="https://raw.githubusercontent.com/jnlewis/yinbox-app/main/docs/images/screenshot-view-offers.png" alt="">
+    <img src="https://raw.githubusercontent.com/jnlewis/yinbox-app/main/docs/screenshots/landing-2.png" alt="">
 </p>

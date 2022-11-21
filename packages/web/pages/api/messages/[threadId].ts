@@ -16,6 +16,9 @@ export default function handler(
   try {
     if (req.method === 'GET') {
       const { threadId } = req.query;
+      
+      // TODO: verify user
+      
       apiGetMessages(threadId as string).then((result) => {
         res.status(200).json(result);
       });

@@ -1,5 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { Chat } from 'core/entities/chat';
+import { verifyToken } from 'modules/jwt/jwtHelper';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { apiGetChatsByOwner } from 'services/api/apiChatService';
 
@@ -15,7 +16,15 @@ export default function handler(
 ) {
   try {
     if (req.method === 'GET') {
+      
       const { owner } = req.query;
+
+      // Verify user
+      const user = verifyToken(req.headers.authorization);
+      if (user?.accountId !== owner) {
+        res.status(403).json({ message: 'Unauthorized.' });
+      }
+
       apiGetChatsByOwner(owner as string).then((result) => {
         res.status(200).json(result);
       });

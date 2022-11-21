@@ -16,6 +16,9 @@ export default function handler(
   try {
     if (req.method === 'GET') {
       const { threadId, timestamp } = req.query;
+
+      // TODO: verify user
+      
       apiGetMessagesSince(threadId as string, Number(timestamp)).then((result) => {
         res.status(200).json(result);
       });

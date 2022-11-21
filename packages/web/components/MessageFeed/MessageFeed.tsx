@@ -104,7 +104,6 @@ const MessageFeed = ({ chat, isSelf }: MessageFeedProps) => {
 
     await sendMessage(
       newMessage.threadId,
-      newMessage.sender,
       newMessage.recipient,
       newMessage.message,
       newMessage.messageType,

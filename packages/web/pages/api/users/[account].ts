@@ -1,7 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { User } from 'core/entities/user';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { apiGetChatsByOwner } from 'services/api/apiChatService';
 import { apiGetUser } from 'services/api/apiUserService';
 
 type ResponseData = User;

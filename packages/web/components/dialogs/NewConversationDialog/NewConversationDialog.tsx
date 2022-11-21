@@ -55,7 +55,6 @@ export default function NewConversationDialog({
     setIsLoading(true);
 
     await createChat({
-      owner: walletAddress,
       participant: inputAccountId,
     });
 

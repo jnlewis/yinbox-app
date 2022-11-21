@@ -4,10 +4,10 @@ import { Message } from 'core/entities/message';
 import { MessageTypes } from 'core/enums/messageTypes';
 import logger from 'core/logger/logger';
 import { decrypt, encrypt } from 'modules/encryption/encryption';
+import localStorage from 'core/storage/localStorage';
 
 export const sendMessage = async (
   threadId: string,
-  sender: string,
   recipient: string,
   message: string,
   messageType: MessageTypes,
@@ -15,13 +15,16 @@ export const sendMessage = async (
   try {
     logger.logInfo('sendMessage', 'Begin');
 
+    const config = {
+      headers: { Authorization: `Bearer ${localStorage.getAuthToken()}` },
+    };
+
     const response = await axios.post('/api/messages/send', {
       threadId,
-      sender,
       recipient,
       message: encrypt(message, sessionKey),
       messageType,
-    });
+    }, config);
 
   } catch (e) {
     logger.logError('sendMessage', 'Failed', e);
@@ -37,7 +40,11 @@ export const fetchMessages = async (threadId: string, sessionKey: string): Promi
       return [];
     }
 
-    const response = await axios.get<Message[]>(`/api/messages/${threadId}`);
+    const config = {
+      headers: { Authorization: `Bearer ${localStorage.getAuthToken()}` },
+    };
+
+    const response = await axios.get<Message[]>(`/api/messages/${threadId}`, config);
 
     response.data.forEach(element => {
       element.message = decrypt(element.message, sessionKey)
@@ -58,7 +65,11 @@ export const fetchMessagesSince = async (threadId: string, timestamp: number, se
       return [];
     }
 
-    const response = await axios.get<Message[]>(`/api/messages/${threadId}/${timestamp}`);
+    const config = {
+      headers: { Authorization: `Bearer ${localStorage.getAuthToken()}` },
+    };
+
+    const response = await axios.get<Message[]>(`/api/messages/${threadId}/${timestamp}`, config);
 
     response.data.forEach(element => {
       element.message = decrypt(element.message, sessionKey)

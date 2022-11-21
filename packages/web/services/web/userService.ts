@@ -1,7 +1,8 @@
 import axios from 'axios';
-import { Message } from 'core/entities/message';
+import { JWT } from 'core/entities/jwt';
 import { User } from 'core/entities/user';
 import logger from 'core/logger/logger';
+import localStorage from 'core/storage/localStorage';
 
 export const signInUser = async ({
   accountId,
@@ -12,12 +13,21 @@ export const signInUser = async ({
     if (!accountId) {
       return;
     }
+    
+    // TODO: sign accountId using near sdk
+    const signature = accountId;
 
-    // TODO: verify sender using ed25519
-
-    const response = await axios.post('/api/users/signin', {
+    const response = await axios.post('/api/auth/signin', {
       accountId,
+      signature,
     });
+
+    const result = response.data as JWT;
+    
+    // Store token in local storage
+    if (result.token !== 'undefined') {
+      localStorage.storeAuthToken(result.token);
+    }
 
   } catch (e) {
     logger.logError('signInUser', 'Failed', e);

@@ -1,17 +1,25 @@
 import axios from 'axios';
 import { Chat } from 'core/entities/chat';
 import logger from 'core/logger/logger';
+import localStorage from 'core/storage/localStorage';
 
 export const createChat = async ({
-  owner,
   participant,
-}: Pick<Chat, 'owner' | 'participant'>): Promise<void> => {
+}: { participant: string }): Promise<void> => {
   try {
     logger.logInfo('createChat', 'Begin');
-    await axios.post('/api/chats/create', {
-      owner,
-      participant,
-    });
+
+    const config = {
+      headers: { Authorization: `Bearer ${localStorage.getAuthToken()}` },
+    };
+
+    await axios.post(
+      '/api/chats/create',
+      {
+        participant,
+      },
+      config,
+    );
   } catch (e) {
     logger.logError('createChat', 'Failed', e);
     return null;
@@ -26,7 +34,11 @@ export const fetchOwnerChats = async (owner: string): Promise<Chat[]> => {
       return [];
     }
 
-    const response = await axios.get<Chat[]>(`/api/chats/${owner}`);
+    const config = {
+      headers: { Authorization: `Bearer ${localStorage.getAuthToken()}` },
+    };
+
+    const response = await axios.get<Chat[]>(`/api/chats/${owner}`, config);
 
     return response.data;
   } catch (e) {

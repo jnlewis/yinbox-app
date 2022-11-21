@@ -1,11 +1,11 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { MessageTypes } from 'core/enums/messageTypes';
+import { verifyToken } from 'modules/jwt/jwtHelper';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { apiSendMessage } from 'services/api/apiMessageService';
 
 type RequestData = {
   threadId: string;
-  sender: string;
   recipient: string;
   message: string;
   messageType: MessageTypes;
@@ -25,8 +25,15 @@ export default function handler(
 ) {
   try {
     if (req.method === 'POST') {
-      const { threadId, sender, recipient, message, messageType }: RequestData = req.body;
-      apiSendMessage(threadId, sender, recipient, message, messageType).then(() => {
+      const { threadId, recipient, message, messageType }: RequestData = req.body;
+
+      // Verify user
+      const user = verifyToken(req.headers.authorization);
+      if (!user?.accountId) {
+        res.status(403).json({ message: 'Unauthorized.' });
+      }
+
+      apiSendMessage(threadId, user.accountId, recipient, message, messageType).then(() => {
         res.status(200).json({ message: 'Success' });
       });
     } else {

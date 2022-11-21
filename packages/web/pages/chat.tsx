@@ -10,6 +10,7 @@ import MessageHeader from 'components/MessageHeader/MessageHeader';
 import { Chat } from 'core/entities/chat';
 import logger from 'core/logger/logger';
 import WalletManager from 'modules/walletManager/walletManager';
+import localStorage from 'core/storage/localStorage';
 
 const Chat: NextPage = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -23,7 +24,7 @@ const Chat: NextPage = () => {
       setWalletIsConnected(isSignedIn);
       setIsLoading(false);
 
-      if (!isSignedIn) {
+      if (!isSignedIn || !localStorage.getAuthToken()) {
         location.href = '/';
       }
     };

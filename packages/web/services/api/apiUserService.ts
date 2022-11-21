@@ -1,19 +1,30 @@
 import { adaptUser } from 'core/adapters/userAdapter';
+import { JWT } from 'core/entities/jwt';
 import { User } from 'core/entities/user';
 import logger from 'core/logger/logger';
 import DBUser from 'modules/mongodb/models/dbUser.model';
 import { MongoDB } from 'modules/mongodb/mongodb';
+import { generateToken } from 'modules/jwt/jwtHelper';
 
 export const apiSignInUser = async (
   accountId: string,
-) => {
+  signature: string,
+): Promise<JWT> => {
   try {
     logger.logInfo('apiSignInUser', 'Begin');
 
-    // Skip if user already exists
+    // TODO: verify signature
+
+    // Generate JWT token
+    const tokenPayload = generateToken({ accountId });
+    const result: JWT = {
+      token: tokenPayload,
+    };
+
+    // Create user if not already exist
     const user = await apiGetUser(accountId);
     if (user != null) {
-      return;
+      return result;
     }
 
     const data: DBUser = {
@@ -25,9 +36,11 @@ export const apiSignInUser = async (
     await database.connectToDatabase();
     await database.collections.users.addUser(data);
     await database.disconnectFromDatabase();
+
+    return result;
   } catch (e) {
     logger.logError('apiSignInUser', 'Failed', e);
-    return [];
+    return null;
   }
 };
 

@@ -29,7 +29,7 @@ const Navigation = ({ showConnectWallet }: NavigationProps) => {
         try {
           await Promise.all([
             signInUser({accountId: WalletManager.getWalletAddress()}),
-            createChat({ owner: WalletManager.getWalletAddress(), participant: WalletManager.getWalletAddress() }),
+            createChat({ participant: WalletManager.getWalletAddress() }),
           ]);
         }
         catch(e) {

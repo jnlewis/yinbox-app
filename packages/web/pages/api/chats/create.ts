@@ -1,9 +1,9 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import { verifyToken } from 'modules/jwt/jwtHelper';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { apiCreateChat } from 'services/api/apiChatService';
 
 type RequestData = {
-  owner: string;
   participant: string;
 };
 
@@ -21,8 +21,15 @@ export default function handler(
 ) {
   try {
     if (req.method === 'POST') {
-      const { owner, participant }: RequestData = req.body;
-      apiCreateChat(owner, participant).then(() => {
+      const { participant }: RequestData = req.body;
+
+      // Verify user
+      const user = verifyToken(req.headers.authorization);
+      if (!user?.accountId) {
+        res.status(403).json({ message: 'Unauthorized.' });
+      }
+      
+      apiCreateChat(user.accountId, participant).then(() => {
         res.status(200).json({ message: 'Success' });
       });
     } else {

@@ -19,7 +19,6 @@ export default function handler(
       
       const { owner } = req.query;
 
-      // Verify user
       const user = verifyToken(req.headers.authorization);
       if (user?.accountId !== owner) {
         res.status(403).json({ message: 'Unauthorized.' });

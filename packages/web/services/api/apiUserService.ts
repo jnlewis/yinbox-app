@@ -13,7 +13,8 @@ export const apiSignInUser = async (
   try {
     logger.logInfo('apiSignInUser', 'Begin');
 
-    // TODO: verify signature
+    // TODO: verify signature using Ed25519. 
+    // Signature to be a signed message on client NEAR wallet
 
     // Generate JWT token
     const tokenPayload = generateToken({ accountId });

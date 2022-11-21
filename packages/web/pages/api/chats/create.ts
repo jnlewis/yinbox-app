@@ -23,7 +23,6 @@ export default function handler(
     if (req.method === 'POST') {
       const { participant }: RequestData = req.body;
 
-      // Verify user
       const user = verifyToken(req.headers.authorization);
       if (!user?.accountId) {
         res.status(403).json({ message: 'Unauthorized.' });

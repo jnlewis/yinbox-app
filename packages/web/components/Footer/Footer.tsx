@@ -16,10 +16,10 @@ const Footer = () => {
             </p>
             <div className={styles.label}>Connect with us</div>
             <div className={styles.followUs}>
-              <a href='https://github.com/jnlewis/yinbox-contracts' className={styles.iconWhite}>
+              <a href='https://github.com/jnlewis/yinbox-app' className={styles.iconWhite}>
                 <img src='/assets/icons8-github.svg' alt='Github' />
               </a>
-              <a href='mailto:contact@swapstation.io'>
+              <a href='mailto:novensiles@gmail.com'>
                 <img src='/assets/email.svg' alt='Email' className={styles.iconWhite} />
               </a>
             </div>

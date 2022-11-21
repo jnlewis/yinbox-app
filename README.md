@@ -13,10 +13,9 @@ Yinbox is the first fully integrated messenger app with end-to-end encryption an
 - [Live Product Preview](#live-product-preview)
 - [Developer Quick Start](#developer-quick-start)
     - [Project Structure](#project-structure)
-    - [Deploying to development environment](#deploying-to-development-environment)
-    - [Running Web Application](#running-web-application)
-- [Interacting With the Contracts](#interacting-with-the-contracts)
-    - [Exchange Contract functions](#exchange-contract-functions)
+    - [Smart Contracts Quick Start](#smart-contracts-quick-start)
+    - [Smart Contracts Functions and Interface](#smart-contracts-functions-and-interface)
+    - [Web and API Quick Start](#web-and-api-quick-start)
 - [Screenshots](#screenshots)
 - [License](#license)
 
@@ -27,9 +26,6 @@ Yinbox is the first fully integrated messenger app with end-to-end encryption an
 
 - **Fee Based Spam Prevention**
     - To prevent spams, Yinbox charges a one time fee of 0.5 NEAR when beginning a new conversation with anyone.
-
-- **Physical Message Deletion**
-    - Messages you delete are physically removed from Yinbox servers, like it never happened in the first place.
 
 - **On-Chain and Off-Chain Symbiosis**
     - Security, Speed and Convenience
@@ -110,10 +106,6 @@ This is an early build version of the application on testnet. The smart contract
 - Refer to the [Web Application Developer Readme](https://github.com/jnlewis/yinbox-app/tree/main/packages/web/README.md)
 
 
-## License
-
-[Apache 2.0](https://github.com/jnlewis/yinbox-app/blob/main/LICENSE)
-
 ## Screenshots
 
 <p align="center">
@@ -125,3 +117,7 @@ This is an early build version of the application on testnet. The smart contract
 <p align="center">
     <img src="https://raw.githubusercontent.com/jnlewis/yinbox-app/main/docs/screenshots/screenshot-landing-2.png" alt="">
 </p>
+
+## License
+
+[Apache 2.0](https://github.com/jnlewis/yinbox-app/blob/main/LICENSE)

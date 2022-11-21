@@ -25,7 +25,7 @@ export const signInUser = async ({
     const result = response.data as JWT;
     
     // Store token in local storage
-    if (result.token !== 'undefined') {
+    if (result?.token !== 'undefined') {
       localStorage.storeAuthToken(result.token);
     }
 
